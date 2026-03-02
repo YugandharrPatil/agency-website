@@ -1,0 +1,39 @@
+---
+import { Card } from "./ui/card";
+import { Check } from "lucide-react";
+
+type TiersType = {
+	name: string;
+	description: string;
+	price: number;
+	features: string[];
+};
+
+const TIERS: TiersType[] = [
+	{ name: "Basic", description: "Clean, Minimalistic, Performant Website", price: 5000, features: ["Clean, Minimal Website", "Basic SEO", "Mobile Responsive", "Live in 2 weeks"] },
+	{ name: "Pro", description: "Take things to the next level", price: 9000, features: ["everything in basic", "Custom CMS", "Copywriting"] },
+	{ name: "Enterprise", description: "End to end online presence", price: 15000, features: ["Everythin in Pro", "Custom Domain Email ID", "Something else"] },
+];
+---
+
+<div class="flex gap-4">
+	{
+		TIERS.map((tier) => {
+			return (
+				<Card>
+					<h1>{tier.name}</h1>
+					<h2>{tier.description}</h2>
+					<p>{tier.price}</p>
+					<ul>
+						{tier.features.map((feature) => (
+							<li class="flex gap-2 my-2">
+								<Check />
+								{feature}
+							</li>
+						))}
+					</ul>
+				</Card>
+			);
+		})
+	}
+</div>

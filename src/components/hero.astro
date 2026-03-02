@@ -1,0 +1,13 @@
+---
+import CTA from "./cta.astro";
+// import Ratings from "./ratings.astro";
+import { Ratings } from "./react/ratings";
+---
+
+<div class="text-center">
+	<h1>Websites That Turn Visitors Into Revenue</h1>
+	<h2>We design and build high-performing websites that don’t just look good — they generate leads, drive sales, and grow your business.</h2>
+	<CTA />
+	<!-- <Ratings /> -->
+	<Ratings client:load />
+</div>

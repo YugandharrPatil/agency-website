@@ -1,0 +1,22 @@
+---
+import { Card } from "./ui/card";
+
+const CONTENT = [
+	{ number: "10+", text: "text" },
+	{ number: "10+", text: "text" },
+	{ number: "10+", text: "text" },
+];
+---
+
+<div class="flex">
+	{
+		CONTENT.map((content) => {
+			return (
+				<Card>
+					<h1>{content.number}</h1>
+					<p>{content.text}</p>
+				</Card>
+			);
+		})
+	}
+</div>

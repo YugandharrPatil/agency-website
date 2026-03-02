@@ -1,0 +1,14 @@
+---
+import NavItems from "../components/nav-items.astro";
+import { Button } from "./ui/button";
+---
+
+<nav class="bg-background text-foreground h-24">
+	<div class="flex justify-between container h-full mx-auto items-center">
+		<div class="bg-amber-500 h-12 w-12"></div>
+		<NavItems />
+		<a href="">
+			<Button variant="default">Contact Me</Button>
+		</a>
+	</div>
+</nav>

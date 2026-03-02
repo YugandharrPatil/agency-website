@@ -1,0 +1,39 @@
+---
+import { Button } from "./ui/button";
+
+type NavItemType = {
+	id: number;
+	text: string;
+	href: string;
+};
+
+const NAV_ITEMS: NavItemType[] = [
+	{
+		id: 1,
+		text: "Home",
+		href: "/",
+	},
+	{
+		id: 2,
+		text: "Projects",
+		href: "/projects",
+	},
+	{
+		id: 3,
+		text: "Contact",
+		href: "/contact",
+	},
+];
+---
+
+<div class="flex gap-4">
+	{
+		NAV_ITEMS.map((item) => {
+			return (
+				<a href={item.href}>
+					<Button variant="outline">{item.text}</Button>
+				</a>
+			);
+		})
+	}
+</div>
