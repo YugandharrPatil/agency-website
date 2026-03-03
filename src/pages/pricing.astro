@@ -3,6 +3,7 @@ import Layout from "@/layouts/layout.astro";
 
 import { Card } from "../components/ui/card";
 import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type TiersType = {
 	name: string;
@@ -22,9 +23,7 @@ const TIERS: TiersType[] = [
 	<section class="container mx-auto space-y-10 py-16">
 		<div class="mx-auto max-w-2xl space-y-2 text-center">
 			<h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Simple pricing for clear projects</h1>
-			<p class="text-sm text-muted-foreground sm:text-base">
-				Pick the tier that matches how far along you are. No surprises, no hidden fees.
-			</p>
+			<p class="text-sm text-muted-foreground sm:text-base">Pick the tier that matches how far along you are. No surprises, no hidden fees.</p>
 		</div>
 		<div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-3">
 			{
@@ -46,6 +45,7 @@ const TIERS: TiersType[] = [
 									</li>
 								))}
 							</ul>
+							<a href="/#contact">Select</a>
 						</Card>
 					);
 				})

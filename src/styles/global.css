@@ -128,3 +128,15 @@
 		cursor: pointer;
 	}
 }
+
+.heading {
+	@apply text-2xl font-semibold tracking-tight;
+}
+
+.sub-heading {
+	@apply text-sm text-muted-foreground sm:text-base;
+}
+
+.hr {
+	@apply w-20 border-t-4 border-dotted border-gray-500 mx-auto;
+}

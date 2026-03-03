@@ -11,7 +11,7 @@ type TestomonialType = {
 	altText: string;
 	text: string;
 	name: string;
-  designation: string
+	designation: string;
 };
 
 const TESTIMONIALS: TestomonialType[] = [
@@ -21,7 +21,7 @@ const TESTIMONIALS: TestomonialType[] = [
 		altText: "",
 		text: "Amazing Stuff!",
 		name: "John Carmack",
-    designation: "CEO Billion Dollar Startup"
+		designation: "CEO Billion Dollar Startup",
 	},
 	{
 		id: 2,
@@ -29,7 +29,7 @@ const TESTIMONIALS: TestomonialType[] = [
 		altText: "",
 		text: "Great Work!",
 		name: "John Romero",
-    designation: "CEO Billion Dollar Startup"
+		designation: "CEO Billion Dollar Startup",
 	},
 	{
 		id: 3,
@@ -37,15 +37,15 @@ const TESTIMONIALS: TestomonialType[] = [
 		altText: "",
 		text: "Nice Work!",
 		name: "Notch",
-    designation: "CEO Billion Dollar Startup"
+		designation: "CEO Billion Dollar Startup",
 	},
 ];
 ---
 
 <section class="container mx-auto space-y-8 py-12">
 	<div class="text-center">
-		<h2 class="text-2xl font-semibold tracking-tight">What clients say</h2>
-		<p class="mt-1 text-sm text-muted-foreground">A few kind words from people we’ve worked with.</p>
+		<h1 class="heading">What clients say</h1>
+		<h2 class="sub-heading">A few kind words from people we’ve worked with.</h2>
 	</div>
 	<div class="grid gap-6 md:grid-cols-3">
 		{
@@ -54,11 +54,7 @@ const TESTIMONIALS: TestomonialType[] = [
 					<Card className="flex h-full flex-col justify-between border-muted bg-card/60 p-6">
 						<div class="space-y-4">
 							<div class="flex flex-col items-center gap-3 text-center">
-								<Image
-									src={testimonial.image}
-									alt={testimonial.altText}
-									class="h-12 w-12 rounded-full object-cover"
-								/>
+								<Image src={testimonial.image} alt={testimonial.altText} class="h-12 w-12 rounded-full object-cover" />
 								<div class="space-y-0.5">
 									<p class="text-sm font-medium">{testimonial.name}</p>
 									<p class="text-xs text-muted-foreground">{testimonial.designation}</p>
@@ -72,3 +68,5 @@ const TESTIMONIALS: TestomonialType[] = [
 		}
 	</div>
 </section>
+
+<hr class="hr" />

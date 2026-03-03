@@ -23,30 +23,26 @@ const FAQS = [
 
 export default function FAQ() {
 	return (
-		<section className="container mx-auto flex justify-center py-16">
-			<div className="w-full max-w-xl space-y-6">
-				<div className="space-y-1 text-center">
-					<h2 className="text-xl font-semibold tracking-tight">Frequently asked questions</h2>
-					<p className="text-xs text-muted-foreground">
-						Short answers to the things people usually ask us.
-					</p>
+		<>
+			<section className="container mx-auto flex justify-center py-16">
+				<div className="w-full max-w-xl space-y-6">
+					<div className="space-y-1 text-center">
+						<h1 className="heading">Frequently asked questions</h1>
+						<p className="sub-heading">Short answers to the things people usually ask us.</p>
+					</div>
+					<Accordion type="single" collapsible defaultValue="shipping" className="w-full rounded-lg border border-border bg-card/60 px-4">
+						{FAQS.map((faq) => {
+							return (
+								<AccordionItem value={`${faq.value}`} key={faq.id}>
+									<AccordionTrigger>{faq.question}</AccordionTrigger>
+									<AccordionContent>{faq.answer}</AccordionContent>
+								</AccordionItem>
+							);
+						})}
+					</Accordion>
 				</div>
-				<Accordion
-					type="single"
-					collapsible
-					defaultValue="shipping"
-					className="w-full rounded-lg border border-border bg-card/60 px-4"
-				>
-					{FAQS.map((faq) => {
-						return (
-							<AccordionItem value={`${faq.value}`} key={faq.id}>
-								<AccordionTrigger>{faq.question}</AccordionTrigger>
-								<AccordionContent>{faq.answer}</AccordionContent>
-							</AccordionItem>
-						);
-					})}
-				</Accordion>
-			</div>
-		</section>
+			</section>
+			<hr className="hr" />
+		</>
 	);
 }

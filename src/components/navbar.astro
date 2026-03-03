@@ -1,5 +1,6 @@
 ---
 import NavItems from "../components/nav-items.astro";
+import { ModeToggle } from "./react/mode-toggle";
 import { Button } from "./ui/button";
 
 const pathname = Astro.url.pathname;
@@ -8,16 +9,15 @@ const pathname = Astro.url.pathname;
 <nav class="sticky top-0 z-30 border-b bg-background/80 text-foreground backdrop-blur">
 	<div class="container mx-auto flex h-16 items-center justify-between">
 		<a href="/" class="flex items-center gap-2">
-			<div class="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
-				AG
-			</div>
+			<div class="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">AG</div>
 			<span class="text-sm font-medium tracking-tight text-foreground">Agency</span>
 		</a>
 		<NavItems pathname={pathname} />
-		<a href="#contact">
-			<Button variant="default" size="sm">
-				Contact
-			</Button>
-		</a>
+		<div class="">
+			<a href="/#contact">
+				<Button variant="default" size="sm"> Contact </Button>
+			</a>
+			<ModeToggle client:load />
+		</div>
 	</div>
 </nav>
