@@ -39,13 +39,21 @@ const LINKS: LinkType[] = [
 
 export default function Footer() {
 	return (
-		<footer>
-			<div className="mt-8 flex gap-2 max-xl:justify-center">
-				{LINKS.map((link) => (
-					<a target="_blank" className="block" href={link.URL}>
-						<FontAwesomeIcon icon={link.icon} className={`mx-1 text-2xl transition duration-300 ease-in-out hover:text-slate-400`} />
-					</a>
-				))}
+		<footer className="border-t bg-background/80">
+			<div className="container mx-auto flex flex-col items-center justify-between gap-4 py-6 text-center text-xs text-muted-foreground sm:flex-row sm:text-left">
+				<p className="order-2 sm:order-1">
+					&copy; {new Date().getFullYear()} Agency. All rights reserved.
+				</p>
+				<div className="order-1 flex items-center gap-3 sm:order-2">
+					{LINKS.map((link) => (
+						<a key={link.id} target="_blank" rel="noreferrer" className="block" href={link.URL}>
+							<FontAwesomeIcon
+								icon={link.icon}
+								className="mx-1 text-lg text-muted-foreground transition-colors hover:text-foreground"
+							/>
+						</a>
+					))}
+				</div>
 			</div>
 		</footer>
 	);

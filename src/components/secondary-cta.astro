@@ -1,9 +1,14 @@
 ---
 import CTA from "./cta.astro";
+import { Card } from "./ui/card";
 ---
 
-<div class="text-center">
-	<h1>Digitize Your Presence Now</h1>
-	<h2>Take the next step to grow your business</h2>
-	<CTA />
-</div>
+<section class="container mx-auto py-12">
+	<Card className="mx-auto max-w-2xl space-y-3 border-muted bg-card/60 p-8 text-center">
+		<h1 class="text-2xl font-semibold tracking-tight">Digitize Your Presence Now</h1>
+		<h2 class="text-sm text-muted-foreground sm:text-base">
+			Take the next step to grow your business.
+		</h2>
+		<CTA />
+	</Card>
+</section>

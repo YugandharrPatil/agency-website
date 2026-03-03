@@ -1,1 +1,89 @@
-<div class=""></div>
+---
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
+import { supabase } from '../lib/supabase';
+import axios from "axios"
+
+import type {GithubRepoType} from "../utils/types"
+
+const pathname = Astro.url.pathname;
+
+// let PORTFOLIO = [
+// 	{ id: 1, name: "Project Name", description: "Project Description", hostingURL: "https://google.com" },
+// 	{ id: 2, name: "Project Name", description: "Project Description", hostingURL: "https://google.com" },
+// 	{ id: 3, name: "Project Name", description: "Project Description", hostingURL: "https://google.com" },
+// 	{ id: 4, name: "Project Name", description: "Project Description", hostingURL: "https://google.com" },
+// 	{ id: 5, name: "Project Name", description: "Project Description", hostingURL: "https://google.com" },
+// 	{ id: 6, name: "Project Name", description: "Project Description", hostingURL: "https://google.com" },
+// 	{ id: 7, name: "Project Name", description: "Project Description", hostingURL: "https://google.com" },
+// 	{ id: 8, name: "Project Name", description: "Project Description", hostingURL: "https://google.com" },
+// ];
+
+const { data:repos, error } = await supabase.from("projects").select('*');
+
+console.log(repos)
+
+if(error) {
+    console.log(error)
+}
+
+const token = process.env.GITHUB_AUTH_TOKEN;
+const headers: Record<string, string> = {
+	"X-GitHub-Api-Version": "2022-11-28",
+	Accept: "application/vnd.github+json",
+};
+// Avoid sending `Bearer undefined` (GitHub will return 401)
+if (token) headers.Authorization = `Bearer ${token}`;
+
+const { data:fetchedRepos } = await axios.get(
+	"https://api.github.com/users/YugandharrPatil/repos",
+	{
+		params: { per_page: 100 },
+        headers,
+	},
+);
+
+const filteredRepos = repos
+    .map((r) => fetchedRepos.find((repo) => repo.name === r.repo))
+    .filter((repo): repo is GithubRepoType => Boolean(repo));
+
+
+// if (pathname == "/") {
+// 	PORTFOLIO = PORTFOLIO.slice(0, 3);
+// }
+
+
+---
+
+<section class="container mx-auto space-y-8 py-12">
+	<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		{
+			filteredRepos.map((repo:GithubRepoType) => {
+				return (
+					<Card className="flex h-full flex-col justify-between border-muted bg-card/60 p-6">
+						<div class="space-y-2">
+							<h3 class="text-lg font-semibold">{repo.name}</h3>
+							<p class="text-sm text-muted-foreground">{repo.description}</p>
+						</div>
+						<div class="mt-4">
+							<a href={`${repo.homepage}`} target="_blank" rel="noreferrer">
+								<Button disabled={repo.homepage === null} size="sm" className="w-full">
+									Visit
+								</Button>
+							</a>
+						</div>
+					</Card>
+				);
+			})
+		}
+	</div>
+	{
+		pathname === "/" ? (
+			<div class="flex justify-center">
+				<a href="/portfolio">
+					<Button variant="outline">See more work</Button>
+				</a>
+			</div>
+		) : null
+	}
+</section>

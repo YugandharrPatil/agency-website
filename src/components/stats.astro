@@ -2,21 +2,29 @@
 import { Card } from "./ui/card";
 
 const CONTENT = [
-	{ number: "10+", text: "text" },
-	{ number: "10+", text: "text" },
-	{ number: "10+", text: "text" },
+  { number: "10+", text: "Clients served" },
+  { number: "50+", text: "Projects completed" },
+  { number: "5+", text: "Ongoing partnerships" },
 ];
 ---
 
-<div class="flex">
-	{
-		CONTENT.map((content) => {
-			return (
-				<Card>
-					<h1>{content.number}</h1>
-					<p>{content.text}</p>
-				</Card>
-			);
-		})
-	}
-</div>
+<section class="w-full py-12 md:py-16">
+  <div class="mx-auto flex max-w-5xl flex-col items-center gap-8">
+    <div class="grid w-full gap-6 sm:grid-cols-3">
+      {
+        CONTENT.map((content) => {
+          return (
+            <Card className="flex h-40 w-full flex-col items-center justify-center gap-1 rounded-2xl  bg-white/5 text-center shadow-sm backdrop-blur-sm sm:h-44">
+              <h2 class="text-3xl font-semibold tracking-tight md:text-4xl">
+                {content.number}
+              </h2>
+              <p class="text-sm text-muted-foreground md:text-base">
+                {content.text}
+              </p>
+            </Card>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

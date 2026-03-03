@@ -1,6 +1,8 @@
 ---
 import { Button } from "./ui/button";
 
+const { pathname } = Astro.props;
+
 type NavItemType = {
 	id: number;
 	text: string;
@@ -15,23 +17,34 @@ const NAV_ITEMS: NavItemType[] = [
 	},
 	{
 		id: 2,
-		text: "Projects",
-		href: "/projects",
+		text: "About",
+		href: "/about",
 	},
 	{
 		id: 3,
-		text: "Contact",
-		href: "/contact",
+		text: "Portfolio",
+		href: "/portfolio",
+	},
+	{
+		id: 4,
+		text: "Pricing",
+		href: "/pricing",
 	},
 ];
 ---
 
-<div class="flex gap-4">
+<div class="hidden items-center gap-1 md:flex">
 	{
 		NAV_ITEMS.map((item) => {
 			return (
-				<a href={item.href}>
-					<Button variant="outline">{item.text}</Button>
+				<a href={item.href} class="text-sm">
+					<Button
+						variant={pathname == item.href ? "outline" : "ghost"}
+						size="sm"
+						className="px-3"
+					>
+						{item.text}
+					</Button>
 				</a>
 			);
 		})

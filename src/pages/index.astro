@@ -1,23 +1,18 @@
 ---
 import Hero from "@/components/hero.astro";
-import Navbar from "../components/navbar.astro";
 import Layout from "../layouts/layout.astro";
 import Stats from "@/components/stats.astro";
 import Portfolio from "@/components/portfolio.astro";
-import Pricing from "@/components/pricing.astro";
-import SecondaryCTA from "@/components/secondary-cta.astro";
-// import Footer from "@/components/footer.astro";
-import Footer from "../components/react/footer";
 import ContactForm from "../components/react/contact-form";
+import Testimonials from "@/components/testimonials.astro";
+import FAQ from "@/components/react/faq";
 ---
 
-<Layout>
-	<Navbar />
+<Layout title="Agency Name Here">
 	<Hero />
 	<Stats />
 	<Portfolio />
-	<Pricing />
+	<Testimonials />
 	<ContactForm client:visible />
-	<SecondaryCTA />
-	<Footer client:visible />
+	<FAQ client:visible />
 </Layout>

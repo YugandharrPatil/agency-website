@@ -1,0 +1,74 @@
+---
+import { Card } from "./ui/card";
+import { Image } from "astro:assets";
+
+// IMAGES
+import testImage from "../assets/image.png";
+
+type TestomonialType = {
+	id: number;
+	image: ImageMetadata;
+	altText: string;
+	text: string;
+	name: string;
+  designation: string
+};
+
+const TESTIMONIALS: TestomonialType[] = [
+	{
+		id: 1,
+		image: testImage,
+		altText: "",
+		text: "Amazing Stuff!",
+		name: "John Carmack",
+    designation: "CEO Billion Dollar Startup"
+	},
+	{
+		id: 2,
+		image: testImage,
+		altText: "",
+		text: "Great Work!",
+		name: "John Romero",
+    designation: "CEO Billion Dollar Startup"
+	},
+	{
+		id: 3,
+		image: testImage,
+		altText: "",
+		text: "Nice Work!",
+		name: "Notch",
+    designation: "CEO Billion Dollar Startup"
+	},
+];
+---
+
+<section class="container mx-auto space-y-8 py-12">
+	<div class="text-center">
+		<h2 class="text-2xl font-semibold tracking-tight">What clients say</h2>
+		<p class="mt-1 text-sm text-muted-foreground">A few kind words from people we’ve worked with.</p>
+	</div>
+	<div class="grid gap-6 md:grid-cols-3">
+		{
+			TESTIMONIALS.map((testimonial) => {
+				return (
+					<Card className="flex h-full flex-col justify-between border-muted bg-card/60 p-6">
+						<div class="space-y-4">
+							<div class="flex flex-col items-center gap-3 text-center">
+								<Image
+									src={testimonial.image}
+									alt={testimonial.altText}
+									class="h-12 w-12 rounded-full object-cover"
+								/>
+								<div class="space-y-0.5">
+									<p class="text-sm font-medium">{testimonial.name}</p>
+									<p class="text-xs text-muted-foreground">{testimonial.designation}</p>
+								</div>
+							</div>
+							<p class="text-sm text-muted-foreground">“{testimonial.text}”</p>
+						</div>
+					</Card>
+				);
+			})
+		}
+	</div>
+</section>

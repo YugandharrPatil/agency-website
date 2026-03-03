@@ -1,0 +1,41 @@
+---
+import Layout from "@/layouts/layout.astro";
+import { Card } from "../components/ui/card";
+
+type AboutCardType = {
+	id: number;
+	icon: any;
+	heading: string;
+	description: string;
+};
+
+const ABOUT_CARDS: AboutCardType[] = [
+	{ id: 1, icon: "", heading: "Sample Heading", description: "Sample Description" },
+	{ id: 2, icon: "", heading: "Sample Heading", description: "Sample Description" },
+	{ id: 3, icon: "", heading: "Sample Heading", description: "Sample Description" },
+];
+---
+
+<Layout title="About">
+	<section class="container mx-auto space-y-10 py-16">
+		<div class="mx-auto max-w-2xl text-center space-y-2">
+			<h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">About the studio</h1>
+			<p class="text-sm text-muted-foreground sm:text-base">
+				A small team focused on clean, fast websites that are easy to use and simple to maintain.
+			</p>
+		</div>
+		<div class="mx-auto grid max-w-4xl gap-4 sm:grid-cols-3">
+			{
+				ABOUT_CARDS.map((card) => {
+					return (
+						<Card className="space-y-2 border-muted bg-card/60 p-5 text-center">
+							{/* ICON HERE */}
+							<h2 class="text-base font-medium">{card.heading}</h2>
+							<p class="text-xs text-muted-foreground">{card.description}</p>
+						</Card>
+					);
+				})
+			}
+		</div>
+	</section>
+</Layout>;
