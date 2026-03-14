@@ -38,11 +38,7 @@ const NAV_ITEMS: NavItemType[] = [
 		NAV_ITEMS.map((item) => {
 			return (
 				<a href={item.href} class="text-sm">
-					<Button
-						variant={pathname == item.href ? "outline" : "ghost"}
-						size="sm"
-						className="px-3"
-					>
+					<Button variant={pathname == item.href ? "outline" : "ghost"} size="sm" className="px-3">
 						{item.text}
 					</Button>
 				</a>
