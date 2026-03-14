@@ -21,8 +21,8 @@ export default defineConfig({
 	},
 	env: {
 		schema: {
-			PUBLIC_SUPABASE_URL: envField.string({ context: "server", access: "public" }),
-			PUBLIC_SUPABASE_KEY: envField.string({ context: "server", access: "public" }),
+			PUBLIC_SUPABASE_URL: envField.string({ context: "client", access: "public" }),
+			PUBLIC_SUPABASE_KEY: envField.string({ context: "client", access: "public" }),
 			GITHUB_AUTH_TOKEN: envField.string({ context: "server", access: "secret" }),
 		},
 	},
