@@ -9,6 +9,7 @@ import { GITHUB_AUTH_TOKEN } from "astro:env/server";
 // TYPES
 import type { GithubRepoType } from "../utils/types";
 import type { Database } from "../../database.types";
+import { ExternalLink } from "lucide-react";
 
 const pathname = Astro.url.pathname;
 
@@ -39,7 +40,17 @@ const { data: fetchedRepos } = await axios.get("https://api.github.com/users/Yug
 	headers,
 });
 
-let filteredRepos = repos?.map((r) => fetchedRepos.find((repo: GithubRepoType) => repo.name === r.repo)).filter((repo): repo is GithubRepoType => Boolean(repo));
+// console.log(fetchedRepos);
+
+// let filteredRepos = repos?.map((r) => fetchedRepos.find((repo: GithubRepoType) => repo.name === r.repo)).filter((repo): repo is GithubRepoType => Boolean(repo));
+
+// filters repos and adds demo video
+let filteredRepos = repos
+	?.map((r) => {
+		const repo = fetchedRepos.find((repo: GithubRepoType) => repo.name === r.repo);
+		return repo ? { ...repo, demoVideo: r["demo_video"] } : undefined;
+	})
+	.filter((repo): repo is GithubRepoType & { demoVideo?: string } => Boolean(repo));
 
 if (pathname == "/") {
 	filteredRepos = filteredRepos?.slice(0, 3);
@@ -60,10 +71,15 @@ if (pathname == "/") {
 							<h3 class="text-lg font-semibold">{repo.name}</h3>
 							<p class="text-sm text-muted-foreground">{repo.description}</p>
 						</div>
-						<div class="mt-4">
+						<div class="mt-4 flex gap-4">
 							<a href={`${repo.homepage}`} target="_blank" rel="noreferrer">
 								<Button disabled={repo.homepage === null} size="sm" className="w-full">
-									Visit
+									Visit <ExternalLink className="h-4 w-4" />
+								</Button>
+							</a>
+							<a href={repo.demoVideo || null} target="_blank" rel="noreferrer">
+								<Button size="sm" disabled={repo.demoVideo === null} variant="secondary" className="w-full">
+									{repo.demoVideo === null ? "Coming soon" : "Watch Demo Video"} <ExternalLink className="h-4 w-4" />
 								</Button>
 							</a>
 						</div>

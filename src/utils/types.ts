@@ -35,5 +35,9 @@ export type GithubRepoType = {
 	archived: boolean;
 	disabled: boolean;
 
+	topics: string[];
+
+	demoVideo?: string; // custom
+
 	visibility: "public" | "private" | "internal";
 };

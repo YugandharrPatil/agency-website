@@ -41,16 +41,19 @@ export type Database = {
       projects: {
         Row: {
           created_at: string
+          demo_video: string | null
           id: number
           repo: string | null
         }
         Insert: {
           created_at?: string
+          demo_video?: string | null
           id?: number
           repo?: string | null
         }
         Update: {
           created_at?: string
+          demo_video?: string | null
           id?: number
           repo?: string | null
         }
