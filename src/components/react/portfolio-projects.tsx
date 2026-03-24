@@ -1,78 +1,85 @@
 import axios from "axios";
-import { ExternalLink, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ExternalLink } from "lucide-react";
+import useSWR from "swr";
 
 import { SUPABASE_TABLES } from "../../lib/data";
 import { supabase } from "../../lib/supabase";
 import type { GithubRepoType } from "../../utils/types";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
+import { Skeleton } from "../ui/skeleton";
 
 type PortfolioProjectsProps = {
 	pathname: string;
 };
 
-export default function PortfolioProjects({ pathname }: PortfolioProjectsProps) {
-	const [repos, setRepos] = useState<GithubRepoType[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
+async function fetchSupabaseRepos() {
+	try {
+		const { data: supabaseRepos, error } = await supabase.from(SUPABASE_TABLES.PROJECTS).select("*");
+		if (error) {
+			console.error(error.message);
+		}
+		return supabaseRepos;
+	} catch (err) {
+		console.error("Failed to fetch projects", err);
+	}
+}
 
-	async function fetchSupabaseRepos() {
-		try {
-			const { data: supabaseRepos, error } = await supabase.from(SUPABASE_TABLES.PROJECTS).select("*");
-			if (error) {
-				console.error(error.message);
-			}
-			return supabaseRepos;
-		} catch (err) {
-			console.error("Failed to fetch projects", err);
+async function fetchGithubRepos() {
+	const headers: Record<string, string> = {
+		"X-GitHub-Api-Version": "2022-11-28",
+		Accept: "application/vnd.github+json",
+	};
+
+	const { data } = await axios.get("https://api.github.com/users/YugandharrPatil/repos", {
+		params: { per_page: 100 },
+		headers,
+	});
+	return data;
+}
+
+export default function PortfolioProjects({ pathname }: PortfolioProjectsProps) {
+	const { data: supabaseRepos, isLoading: isSupabaseLoading } = useSWR("supabase-projects", fetchSupabaseRepos, {
+		dedupingInterval: 60000,
+	});
+	const { data: githubRepos, isLoading: isGithubLoading } = useSWR("github-repos", fetchGithubRepos, {
+		dedupingInterval: 60000,
+	});
+
+	const isLoading = isSupabaseLoading || isGithubLoading;
+
+	let repos: (GithubRepoType & { demoVideo?: string })[] = [];
+
+	if (supabaseRepos && githubRepos) {
+		repos = supabaseRepos
+			.map((supabaseRepo) => {
+				const repo = githubRepos.find((githubRepo: GithubRepoType) => githubRepo.name === supabaseRepo.repo);
+				return repo ? { ...repo, demoVideo: supabaseRepo["demo_video"] as string } : undefined;
+			})
+			.filter((repo): repo is GithubRepoType & { demoVideo?: string } => Boolean(repo));
+
+		if (pathname === "/") {
+			repos = repos.slice(0, 3);
 		}
 	}
 
-	async function fetchGithubRepos() {
-		const headers: Record<string, string> = {
-			"X-GitHub-Api-Version": "2022-11-28",
-			Accept: "application/vnd.github+json",
-		};
-
-		const { data } = await axios.get("https://api.github.com/users/YugandharrPatil/repos", {
-			params: { per_page: 100 },
-			headers,
-		});
-		return data;
-	}
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const supabaseRepos = await fetchSupabaseRepos();
-				const githubRepos = await fetchGithubRepos();
-
-				let filteredRepos = supabaseRepos
-					?.map((supabaseRepo) => {
-						const repo = githubRepos.find((githubRepo: GithubRepoType) => githubRepo.name === supabaseRepo.repo);
-						return repo ? { ...repo, demoVideo: supabaseRepo["demo_video"] } : undefined;
-					})
-					.filter((repo): repo is GithubRepoType & { demoVideo?: string } => Boolean(repo));
-
-				if (pathname === "/") {
-					filteredRepos = filteredRepos?.slice(0, 3);
-				}
-
-				setRepos(filteredRepos || []);
-			} catch (err) {
-				console.error("Failed to fetch projects", err);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-
-		fetchData();
-	}, []);
-
+	// loading skeleton
 	if (isLoading) {
+		const skeletonCount = pathname === "/" ? 3 : 6;
 		return (
-			<div className="flex justify-center p-12 w-full">
-				<Loader2 className="h-8 w-8 animate-spin text-primary" />
+			<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{Array.from({ length: skeletonCount }).map((_, i) => (
+					<Card key={i} className="flex h-full flex-col justify-between border-muted bg-card/60 p-6">
+						<div className="space-y-2">
+							<Skeleton className="h-7 w-1/2" />
+							<Skeleton className="h-5 w-4/5" />
+						</div>
+						<div className="mt-4 flex gap-4">
+							<Skeleton className="h-9 w-full" />
+							<Skeleton className="h-9 w-full" />
+						</div>
+					</Card>
+				))}
 			</div>
 		);
 	}
