@@ -26,7 +26,9 @@ export default defineConfig({
 	},
 
 	output: "server",
-	adapter: vercel(),
+	adapter: vercel({
+		imageService: true,
+	}),
 	devToolbar: {
 		enabled: false,
 	},
