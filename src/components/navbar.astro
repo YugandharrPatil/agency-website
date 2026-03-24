@@ -11,11 +11,12 @@ const pathname = Astro.url.pathname;
 		<a href="/" class="flex items-center gap-2">
 			<div class="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">AG</div>
 			<span class="text-sm font-medium tracking-tight text-foreground">Agency</span>
+			{/* TODO: add agency logo and name here */}
 		</a>
 		<NavItems pathname={pathname} />
-		<div class="">
+		<div class="flex items-center gap-4">
 			<a href="/contact">
-				<Button variant="default" size="sm"> Contact </Button>
+				<Button variant="default" size="default">Contact Us</Button>
 			</a>
 			<ModeToggle client:load />
 		</div>

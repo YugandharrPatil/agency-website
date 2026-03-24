@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { InputGroup, InputGroupAddon, InputGroupText, InputGroupTextarea } from "@/components/ui/input-group";
+import { SUPABASE_TABLES } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
 import { Loader2 } from "lucide-react";
 import { Textarea } from "../ui/textarea";
@@ -23,7 +23,7 @@ const formSchema = z.object({
 
 export default function ContactForm() {
 	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(formSchema as any),
 		defaultValues: {
 			name: "",
 			email: "",
@@ -31,8 +31,8 @@ export default function ContactForm() {
 		},
 	});
 
-	async function insertDocument(dataa: any) {
-		const { data: insertedData, error } = await supabase.from("messages").insert([dataa]);
+	async function insertDocument(data: any) {
+		const { error } = await supabase.from(SUPABASE_TABLES.MESSAGES).insert([data]);
 		if (error) console.error(error);
 	}
 
@@ -65,12 +65,12 @@ export default function ContactForm() {
 			<div className="my-12" id="contact">
 				<div className="text-center">
 					<h1 className="heading">Contact Us</h1>
-					<h2 className="sub-heading">We reply within 24 hours of your message</h2>
+					<h2 className="sub-heading">Tell us about your project — we’d love to hear from you</h2>
 				</div>
 				<Card className="w-full sm:max-w-md mx-auto mt-2">
 					<CardHeader>
-						<CardTitle>Bug Report</CardTitle>
-						<CardDescription>Help us improve by reporting bugs you encounter.</CardDescription>
+						<CardTitle>Send us a message</CardTitle>
+						<CardDescription>We’ll get back to you within 24 hours</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
@@ -105,11 +105,6 @@ export default function ContactForm() {
 										<Field data-invalid={fieldState.invalid}>
 											<FieldLabel htmlFor="form-rhf-demo-email">Your Message</FieldLabel>
 											<Textarea {...field} id="form-rhf-demo-email" placeholder="I'd like to make a website for my business." rows={6} className="min-h-24 resize-none" aria-invalid={fieldState.invalid} />
-											{/* <InputGroupAddon align="block-end">
-                    <InputGroupText className="tabular-nums">
-                      {field.value.length}/100 characters
-                    </InputGroupText>
-                  </InputGroupAddon> */}
 											{fieldState.invalid && <FieldError errors={[fieldState.error]} />}
 										</Field>
 									)}
@@ -120,7 +115,7 @@ export default function ContactForm() {
 					<CardFooter>
 						<Field orientation="horizontal">
 							<Button className="w-full" disabled={form.formState.isSubmitting} type="submit" form="form-rhf-demo">
-								{form.formState.isSubmitting && <Loader2 className="spin-class-here" />}
+								{form.formState.isSubmitting && <Loader2 className="animate-spin mr-2" />}
 								Submit
 							</Button>
 						</Field>

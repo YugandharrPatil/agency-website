@@ -1,0 +1,30 @@
+---
+import { Button } from "./ui/button";
+import PortfolioProjects from "./react/portfolio-projects";
+
+const pathname = Astro.url.pathname;
+const isHomePage = pathname === "/";
+---
+
+<section class="container mx-auto space-y-8 py-12 flex flex-col gap-6">
+	{
+		isHomePage && (
+			<div class="text-center">
+				<h1 class="heading">Portfolio</h1>
+				<h2 class="sub-heading">A selection of projects we’ve built for your clients</h2>
+			</div>
+		)
+	}
+	<PortfolioProjects pathname={pathname} client:load />
+	{
+		isHomePage ? (
+			<div class="flex justify-center">
+				<a href="/portfolio">
+					<Button variant="outline">See more work</Button>
+				</a>
+			</div>
+		) : null
+	}
+</section>
+
+<hr class="hr" />

@@ -2,17 +2,17 @@
 import Hero from "@/components/hero.astro";
 import Layout from "../layouts/layout.astro";
 import Stats from "@/components/stats.astro";
-import Portfolio from "@/components/portfolio.astro";
+import PortfolioComponent from "@/components/portfolio-component.astro";
 import ContactForm from "../components/react/contact-form";
 import Testimonials from "@/components/testimonials.astro";
-import FAQ from "@/components/react/faq";
+import FAQ from "@/components/faq.astro";
 ---
 
 <Layout title="Agency Name Here">
 	<Hero />
 	<Stats />
-	<Portfolio />
+	<PortfolioComponent />
 	<Testimonials />
-	<FAQ client:visible />
+	<FAQ />
 	<ContactForm client:visible />
 </Layout>

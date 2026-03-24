@@ -1,0 +1,20 @@
+---
+import AvatarList from "./avatar-list.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<div class="flex items-center gap-4 md:gap-6">
+	<AvatarList />
+
+	<div class="flex flex-col gap-1">
+		<p class="text-xs font-medium uppercase tracking-wide text-muted-foreground">Trusted by 10+ clients</p>
+		<div class="flex items-center gap-1 text-amber-400">
+			<Icon name="fa6-solid:star" aria-hidden="true" class="size-4" />
+			<Icon name="fa6-solid:star" aria-hidden="true" class="size-4" />
+			<Icon name="fa6-solid:star" aria-hidden="true" class="size-4" />
+			<Icon name="fa6-solid:star" aria-hidden="true" class="size-4" />
+			<Icon name="fa6-solid:star" aria-hidden="true" class="size-4" />
+			<span class="sr-only">5 out of 5 star rating</span>
+		</div>
+	</div>
+</div>

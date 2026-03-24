@@ -3,7 +3,9 @@ import { Card } from "./ui/card";
 import { Image } from "astro:assets";
 
 // IMAGES
-import testImage from "../assets/image.png";
+import test1 from "../assets/images/testimonials/test1.png";
+import test2 from "../assets/images/testimonials/test2.png";
+import test3 from "../assets/images/testimonials/test3.png";
 
 type TestomonialType = {
 	id: number;
@@ -17,24 +19,24 @@ type TestomonialType = {
 const TESTIMONIALS: TestomonialType[] = [
 	{
 		id: 1,
-		image: testImage,
-		altText: "",
+		image: test1,
+		altText: "alttest1",
 		text: "Amazing Stuff!",
 		name: "John Carmack",
 		designation: "CEO Billion Dollar Startup",
 	},
 	{
 		id: 2,
-		image: testImage,
-		altText: "",
+		image: test2,
+		altText: "alttest2",
 		text: "Great Work!",
 		name: "John Romero",
 		designation: "CEO Billion Dollar Startup",
 	},
 	{
 		id: 3,
-		image: testImage,
-		altText: "",
+		image: test3,
+		altText: "alttest3",
 		text: "Nice Work!",
 		name: "Notch",
 		designation: "CEO Billion Dollar Startup",
@@ -44,8 +46,8 @@ const TESTIMONIALS: TestomonialType[] = [
 
 <section class="container mx-auto space-y-8 py-12">
 	<div class="text-center">
-		<h1 class="heading">What clients say</h1>
-		<h2 class="sub-heading">A few kind words from people we’ve worked with.</h2>
+		<h1 class="heading">Testimonials</h1>
+		<h2 class="sub-heading">A few kind words from people we’ve worked with</h2>
 	</div>
 	<div class="grid gap-6 md:grid-cols-3">
 		{

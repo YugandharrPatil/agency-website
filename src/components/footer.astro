@@ -1,0 +1,55 @@
+---
+import { Icon } from "astro-icon/components";
+import { cn } from "@/lib/utils";
+
+type LinkType = {
+	id: string;
+	URL: string;
+	icon: string;
+	hoverColorClass: string;
+};
+
+const LINKS: LinkType[] = [
+	{
+		id: "twitter",
+		URL: "https://twitter.com/the_yugandharr",
+		icon: "fa6-brands:twitter",
+		hoverColorClass: "group-hover:text-[#1da1f2]",
+	},
+	{
+		id: "instagram",
+		URL: "https://www.instagram.com/the_yugandharr/",
+		icon: "fa6-brands:instagram",
+		hoverColorClass: "group-hover:text-[#C13584]",
+	},
+	{
+		id: "github",
+		URL: "https://github.com/YugandharrPatil",
+		icon: "fa6-brands:github",
+		hoverColorClass: "group-hover:text-[#5D6BC1]",
+	},
+	{
+		id: "email",
+		URL: "mailto:yugandharrpatil@gmail.com",
+		icon: "fa6-regular:envelope",
+		hoverColorClass: "group-hover:text-[#94a3b8]",
+	},
+];
+---
+
+<footer class="border-t bg-background/80">
+	<div class="container mx-auto flex flex-col items-center justify-between gap-4 py-6 text-center text-xs text-muted-foreground sm:flex-row sm:text-left">
+		<p class="order-2 sm:order-1">
+			&copy; {new Date().getFullYear()} Agency. All rights reserved. {/* TODO: add name of agency here */}
+		</p>
+		<div class="order-1 flex items-center gap-3 sm:order-2">
+			{
+				LINKS.map((link) => (
+					<a target="_blank" rel="noreferrer" class="group block" href={link.URL}>
+						<Icon name={link.icon} class={cn("mx-1 text-lg text-muted-foreground transition-colors duration-300", link.hoverColorClass)} />
+					</a>
+				))
+			}
+		</div>
+	</div>
+</footer>

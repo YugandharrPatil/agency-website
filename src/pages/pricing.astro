@@ -1,18 +1,18 @@
 ---
 import Layout from "@/layouts/layout.astro";
 
+import { Icon } from "astro-icon/components";
 import { Card } from "../components/ui/card";
-import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-type TiersType = {
+type PricingTiers = {
 	name: string;
 	description: string;
 	price: number;
 	features: string[];
 };
 
-const TIERS: TiersType[] = [
+const TIERS: PricingTiers[] = [
 	{ name: "Basic", description: "Clean, Minimalistic, Performant Website", price: 5000, features: ["Clean, Minimal Website", "Basic SEO", "Mobile Responsive", "Live in 2 weeks"] },
 	{ name: "Pro", description: "Take things to the next level", price: 9000, features: ["everything in basic", "Custom CMS", "Copywriting"] },
 	{ name: "Enterprise", description: "End to end online presence", price: 15000, features: ["Everythin in Pro", "Custom Domain Email ID", "Something else"] },
@@ -40,12 +40,12 @@ const TIERS: TiersType[] = [
 							<ul class="mt-4 space-y-2 text-sm">
 								{tier.features.map((feature) => (
 									<li class="flex items-start gap-2">
-										<Check className="mt-0.5 h-4 w-4 text-primary" />
+										<Icon name="lucide:check" class="mt-0.5 h-4 w-4 text-primary" />
 										<span class="text-muted-foreground">{feature}</span>
 									</li>
 								))}
 							</ul>
-							<a href="/#contact">
+							<a href="/contact">
 								<Button variant="default" className="w-full" size="sm">
 									Contact
 								</Button>
