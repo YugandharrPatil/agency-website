@@ -1,7 +1,7 @@
 ---
 import NavItems from "../components/nav-items.astro";
+import Link from "./link.astro";
 import { ModeToggle } from "./react/mode-toggle";
-import { Button } from "./ui/button";
 
 const pathname = Astro.url.pathname;
 ---
@@ -15,9 +15,7 @@ const pathname = Astro.url.pathname;
 		</a>
 		<NavItems pathname={pathname} />
 		<div class="flex items-center gap-4">
-			<a href="/contact">
-				<Button variant="default" size="default">Contact Us</Button>
-			</a>
+			<Link href="/contact" variant="default" size="default">Contact Us</Link>
 			<ModeToggle client:load />
 		</div>
 	</div>

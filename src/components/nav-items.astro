@@ -1,5 +1,9 @@
 ---
-import { Button } from "./ui/button";
+import Link from "./link.astro";
+
+interface Props {
+	pathname: string;
+}
 
 const { pathname } = Astro.props;
 
@@ -37,11 +41,9 @@ const NAV_ITEMS: NavItemType[] = [
 	{
 		NAV_ITEMS.map((item) => {
 			return (
-				<a href={item.href} class="text-sm">
-					<Button variant={pathname == item.href ? "outline" : "ghost"} size="default" className="px-3">
-						{item.text}
-					</Button>
-				</a>
+				<Link href={item.href} variant={pathname === item.href ? "outline" : "ghost"} size="default" className="px-3">
+					{item.text}
+				</Link>
 			);
 		})
 	}

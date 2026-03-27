@@ -1,5 +1,5 @@
 ---
-import { Button } from "./ui/button";
+import Link from "./link.astro";
 import PortfolioProjects from "./react/portfolio-projects";
 
 const pathname = Astro.url.pathname;
@@ -19,9 +19,9 @@ const isHomePage = pathname === "/";
 	{
 		isHomePage ? (
 			<div class="flex justify-center">
-				<a href="/portfolio">
-					<Button variant="outline">See more work</Button>
-				</a>
+				<Link href="/portfolio" variant="outline" size="default">
+					See more work
+				</Link>
 			</div>
 		) : null
 	}

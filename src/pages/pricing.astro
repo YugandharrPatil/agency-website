@@ -1,22 +1,6 @@
 ---
 import Layout from "@/layouts/layout.astro";
-
-import { Icon } from "astro-icon/components";
-import { Card } from "../components/ui/card";
-import { Button } from "@/components/ui/button";
-
-type PricingTiers = {
-	name: string;
-	description: string;
-	price: number;
-	features: string[];
-};
-
-const TIERS: PricingTiers[] = [
-	{ name: "Basic", description: "Clean, Minimalistic, Performant Website", price: 5000, features: ["Clean, Minimal Website", "Basic SEO", "Mobile Responsive", "Live in 2 weeks"] },
-	{ name: "Pro", description: "Take things to the next level", price: 9000, features: ["everything in basic", "Custom CMS", "Copywriting"] },
-	{ name: "Enterprise", description: "End to end online presence", price: 15000, features: ["Everythin in Pro", "Custom Domain Email ID", "Something else"] },
-];
+import PricingTiers from "@/components/react/pricing-tiers";
 ---
 
 <Layout title="Pricing">
@@ -25,35 +9,6 @@ const TIERS: PricingTiers[] = [
 			<h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Simple pricing for clear projects</h1>
 			<p class="text-sm text-muted-foreground sm:text-base">Pick the tier that matches how far along you are. No surprises, no hidden fees.</p>
 		</div>
-		<div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-3">
-			{
-				TIERS.map((tier) => {
-					return (
-						<Card className="flex h-full flex-col justify-between border-muted bg-card/60 p-6">
-							<div class="space-y-2">
-								<h2 class="text-lg font-semibold">{tier.name}</h2>
-								<p class="text-sm text-muted-foreground">{tier.description}</p>
-								<p class="mt-3 text-2xl font-semibold">
-									<span class="align-top text-xs text-muted-foreground">&#8377;</span> {tier.price.toLocaleString()}
-								</p>
-							</div>
-							<ul class="mt-4 space-y-2 text-sm">
-								{tier.features.map((feature) => (
-									<li class="flex items-start gap-2">
-										<Icon name="lucide:check" class="mt-0.5 h-4 w-4 text-primary" />
-										<span class="text-muted-foreground">{feature}</span>
-									</li>
-								))}
-							</ul>
-							<a href="/contact">
-								<Button variant="default" className="w-full" size="sm">
-									Contact
-								</Button>
-							</a>
-						</Card>
-					);
-				})
-			}
-		</div>
+		<PricingTiers client:load />
 	</section>
 </Layout>

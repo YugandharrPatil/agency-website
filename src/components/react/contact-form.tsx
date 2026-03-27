@@ -31,6 +31,14 @@ export default function ContactForm() {
 		},
 	});
 
+	React.useEffect(() => {
+		const urlParams = new URL(window.location.href).searchParams;
+		const messageParam = urlParams.get("message");
+		if (messageParam) {
+			form.setValue("message", messageParam);
+		}
+	}, [form]);
+
 	async function insertDocument(data: any) {
 		const { error } = await supabase.from(SUPABASE_TABLES.MESSAGES).insert([data]);
 		if (error) console.error(error);
