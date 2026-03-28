@@ -39,7 +39,7 @@ export default function ContactForm() {
 		}
 	}, [form]);
 
-	async function insertDocument(data: any) {
+	async function insertDocument(data: z.infer<typeof formSchema>) {
 		const { error } = await supabase.from(SUPABASE_TABLES.MESSAGES).insert([data]);
 		if (error) console.error(error);
 	}

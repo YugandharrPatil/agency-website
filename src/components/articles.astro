@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "./ui/card";
+import { getWcAndReadingTime } from "@/utils/utils";
+import { Icon } from "astro-icon/components";
+
+const articles = await getCollection("articles");
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto py-8">
+	{
+		articles.map((article) => {
+			const { readingTime } = getWcAndReadingTime(article.body ?? "");
+			return (
+				<a href={`/about/${article.id}`} class="block group h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl">
+					<Card className="h-full transition-all duration-300 hover:shadow-lg flex flex-col cursor-pointer border-muted-foreground/20 hover:border-primary/50 relative overflow-hidden">
+						<CardHeader className="gap-2">
+							<CardTitle className="text-xl group-hover:text-primary transition-colors leading-tight">{article.data.title}</CardTitle>
+						</CardHeader>
+
+						<CardContent className="grow">
+							<p class="text-muted-foreground line-clamp-3 leading-relaxed">{article.data.description}</p>
+						</CardContent>
+
+						<CardFooter className="mt-auto border-t pt-4 text-sm text-muted-foreground flex items-center justify-between">
+							<div class="flex items-center gap-2 font-medium">
+								<Icon name="lucide:clock" class="text-primary/70 h-4 w-4" />
+								{readingTime.minutes} min read
+							</div>
+						</CardFooter>
+					</Card>
+				</a>
+			);
+		})
+	}
+</div>

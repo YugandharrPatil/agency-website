@@ -14,7 +14,7 @@ export default defineConfig({
 		react(),
 		icon({
 			include: {
-				lucide: ["check", "code", "workflow", "zap"],
+				lucide: ["check", "code", "workflow", "zap", "clock", "chevron-left"],
 				"fa6-brands": ["twitter", "instagram", "github"],
 				"fa6-regular": ["envelope"],
 			},

@@ -1,7 +1,8 @@
 ---
 import Layout from "@/layouts/layout.astro";
-import { Card } from "../components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Icon } from "astro-icon/components";
+import Articles from "@/components/articles.astro";
 
 type AboutCardType = {
 	id: number;
@@ -37,5 +38,11 @@ const ABOUT_CARDS: AboutCardType[] = [
 			}
 		</div>
 	</section>
+	<div class="mx-auto max-w-2xl text-center space-y-2">
+		<h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Our Process</h1>
+		<p class="text-sm text-muted-foreground sm:text-base">A transparent, step-by-step approach to building your website — from initial idea to final launch.</p>
+	</div>
+	<div class=""></div>
+	<section><Articles /></section>
 	<hr class="hr" />
 </Layout>;
