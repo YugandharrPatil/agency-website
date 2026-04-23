@@ -5,6 +5,7 @@ import Link from "@/components/link.astro";
 import { Icon } from "astro-icon/components";
 import { flattenError } from "zod";
 import { getWcAndReadingTime } from "@/utils/utils";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export const prerender = true;
 
@@ -21,7 +22,7 @@ const { readingTime } = getWcAndReadingTime(article.body ?? "");
 ---
 
 <Layout title={article.data.title}>
-	<Link href="/about" className="ms-16 mt-8 fixed" variant="link"><Icon name="lucide:chevron-left" class="text-primary/70 h-4 w-4" /> Back to articles</Link>
+	<button onclick="history.back()" class={`${buttonVariants({ variant: "link" })} fixed ms-16 mt-8`}><Icon name="lucide:chevron-left" class="text-primary/70 h-4 w-4" /> Go Back</button>
 	<div class="mt-0">
 		<div class="mx-auto max-w-2xl my-16">
 			<h1 class="text-3xl font-bold mb-8">{article.data.title}</h1>
