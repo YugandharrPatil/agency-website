@@ -9,6 +9,6 @@ interface Props extends ButtonVariants {
 const { href, variant, size, className } = Astro.props;
 ---
 
-<a href={href} class={`${buttonVariants({ variant: variant, size: size, className })}`}>
+<a data-astro-prefetch href={href} class={`${buttonVariants({ variant: variant, size: size, className })}`}>
 	<slot />
 </a>

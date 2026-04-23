@@ -5,16 +5,27 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export function ModeToggle() {
-	const [theme, setThemeState] = React.useState<"theme-light" | "dark" | "system">("theme-light");
+	const [theme, setThemeState] = React.useState<"theme-light" | "dark" | "system" | undefined>(undefined);
 
 	React.useEffect(() => {
-		const isDarkMode = document.documentElement.classList.contains("dark");
-		setThemeState(isDarkMode ? "dark" : "theme-light");
+		const savedTheme = typeof localStorage !== "undefined" ? localStorage.getItem("theme") as "theme-light" | "dark" | "system" | null : null;
+		if (savedTheme && (savedTheme === "dark" || savedTheme === "theme-light" || savedTheme === "system")) {
+			setThemeState(savedTheme);
+		} else {
+			const isDarkMode = document.documentElement.classList.contains("dark");
+			setThemeState(isDarkMode ? "dark" : "theme-light");
+		}
 	}, []);
 
 	React.useEffect(() => {
+		if (theme === undefined) return;
+		
 		const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 		document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+		
+		if (typeof localStorage !== "undefined") {
+			localStorage.setItem("theme", theme);
+		}
 	}, [theme]);
 
 	return (

@@ -15,7 +15,7 @@ const isHomePage = pathname === "/";
 			</div>
 		)
 	}
-	<PortfolioProjects pathname={pathname} client:load />
+	<PortfolioProjects pathname={pathname} client:visible />
 	{
 		isHomePage ? (
 			<div class="flex justify-center">
