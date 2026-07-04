@@ -2,8 +2,6 @@ import axios from "axios";
 import { ExternalLink } from "lucide-react";
 import useSWR from "swr";
 
-import { SUPABASE_TABLES } from "../../lib/data";
-import { supabase } from "../../lib/supabase";
 import type { GithubRepoType } from "../../utils/types";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
@@ -15,11 +13,8 @@ type PortfolioProjectsProps = {
 
 async function fetchSupabaseRepos() {
 	try {
-		const { data: supabaseRepos, error } = await supabase.from(SUPABASE_TABLES.PROJECTS).select("*");
-		if (error) {
-			console.error(error.message);
-		}
-		return supabaseRepos;
+		const { data } = await axios.get("/api/projects");
+		return data;
 	} catch (err) {
 		console.error("Failed to fetch projects", err);
 	}

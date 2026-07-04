@@ -10,8 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { SUPABASE_TABLES } from "@/lib/data";
-import { supabase } from "@/lib/supabase";
 import { Loader2 } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 
@@ -40,8 +38,17 @@ export default function ContactForm() {
 	}, [form]);
 
 	async function insertDocument(data: z.infer<typeof formSchema>) {
-		const { error } = await supabase.from(SUPABASE_TABLES.MESSAGES).insert([data]);
-		if (error) console.error(error);
+		const response = await fetch("/api/contact", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		});
+		if (!response.ok) {
+			const errorData = await response.json();
+			throw new Error(errorData.error || "Failed to submit message");
+		}
 	}
 
 	async function onSubmit(data: z.infer<typeof formSchema>) {

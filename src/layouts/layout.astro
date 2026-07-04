@@ -1,5 +1,5 @@
 ---
-import Navbar from "@/components/navbar.astro";
+import Header from "@/components/shadcn-space/blocks/hero-01/header";
 import Footer from "@/components/footer.astro";
 import SecondaryCTA from "@/components/secondary-cta.astro";
 import "../styles/global.css";
@@ -9,6 +9,14 @@ import "@fontsource-variable/inter";
 import { ClientRouter } from "astro:transitions";
 
 const { title } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const navigationData = [
+	{ title: "Home", href: "/", isActive: pathname === "/" },
+	{ title: "About", href: "/about", isActive: pathname === "/about" || pathname.startsWith("/about/") },
+	{ title: "Portfolio", href: "/portfolio", isActive: pathname === "/portfolio" },
+	{ title: "Pricing", href: "/pricing", isActive: pathname === "/pricing" },
+];
 ---
 
 <!doctype html>
@@ -46,7 +54,7 @@ const { title } = Astro.props;
 	</head>
 	<body class="min-h-screen bg-background text-foreground antialiased">
 		<div class="flex min-h-screen flex-col">
-			<Navbar />
+			<Header client:load navigationData={navigationData} />
 			<main class="flex-1" transition:animate="none">
 				<slot />
 			</main>

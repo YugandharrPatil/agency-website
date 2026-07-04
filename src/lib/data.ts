@@ -1,10 +1,5 @@
 import { Star, Zap, type LucideIcon } from "lucide-react";
 
-export const SUPABASE_TABLES = {
-	PROJECTS: "agency_projects",
-	MESSAGES: "agency_messages",
-} as const;
-
 type Tier = {
 	id: "growth" | "pro" /* | "enterprise" */;
 	name: string;
